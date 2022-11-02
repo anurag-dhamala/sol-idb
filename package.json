@@ -1,7 +1,7 @@
 {
   "name": "sol-idb",
   "version": "0.5.0",
-  "description": "IndexDB that is vivid. Simplest of all.",
+  "description": "IndexDB that is rock solid. Simplest of all.",
   "main": "index.ts",
   "scripts": {
     "test": "echo \"No test specified\"",
