@@ -5,7 +5,7 @@
      "rootDir": "./",                                  /* Specify the root folder within your source files. */
     "alwaysStrict": true,
     "declaration": true,                              /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
-      "declarationDir": "./types-lucid",
+      "declarationDir": "./types-solid",
     "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
     "strict": true,                                      /* Enable all strict type-checking options. */
