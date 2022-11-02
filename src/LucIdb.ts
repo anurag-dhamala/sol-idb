@@ -173,7 +173,7 @@ export class LucIdb {
         })
     }
 
-    public update (storeName: string, key: any, value: any, cb?: any) {
+    public update (storeName: string, key: any, value: any, callback?: any) {
         let self = this;
         return new Promise<any>(function(resolve, reject) {
             self.triggerOnSuccess().then(function() {
@@ -182,14 +182,14 @@ export class LucIdb {
                     throw new Error(Errors.STORE_NOT_FOUND);
                 }
                 if(!idbDatabase.objectStoreNames.contains(storeName)) {
-                    throw new Error(Errors.STORE_NOT_FOUND);
+                    reject(Errors.STORE_NOT_FOUND);
                 }
                 let tx = idbDatabase.transaction(storeName, "readwrite");
                 let store = tx.objectStore(storeName);
                 let req = store.put(value);
                 req.onsuccess = function () {
-                    if(cb) {
-                        cb();
+                    if(callback) {
+                        callback();
                     }
                     resolve(req.result);
                 }
@@ -198,5 +198,29 @@ export class LucIdb {
                 }
             });
         })
+    }
+
+    public delete(storeName: string, key: any, callback?: any) {
+        let self = this;
+        return new Promise<any>(function (resolve, reject) {
+            self.triggerOnSuccess().then(function() {
+                let idbDatabase = self.getIDB();
+                if(!idbDatabase?.objectStoreNames.contains(storeName)){
+                    throw new Error(Errors.STORE_NOT_FOUND);
+                }
+                let tx = idbDatabase?.transaction(storeName, "readwrite");
+                let store = tx.objectStore(storeName);
+                let req = store.delete(key);
+                req.onsuccess = function () {
+                    if(callback) {
+                        callback();
+                        resolve(req.result);
+                    }
+                }
+                req.onerror = function (err) {
+                    reject(err)
+                }
+            })
+        });
     }
 }
