@@ -14,13 +14,15 @@ npm install luc-idb
 import { LucIdb } from "luc-idb/types-lucid";
 
 let DB_NAME = "db"; //name of database to create
+
+//Array of stores to create while initializing luc-idb
 let stores = [
     {
         name: "my_store", // name of store
         keyPath: "id" // unique property of objects 
                       // to be stored
     },
-    ...
+    //...
 ];    
 let my_db = new LucIdb(DB_NAME, stores);
 ```
@@ -60,7 +62,7 @@ let value = my_db.get("my_store", "MY_UNIQUE_ID");
 let value = my_db.getAll("my_store");
 ```
 
-- **update(storeName, key, new_value, callback)** : To update the value for the given key within the provided store. Callback is available here too as optional parameter.
+- **update(storeName, key, new_value, callback)** : To update the value for the given key within the provided store. Callback is available here too (as optional parameter).
 ```javascript
 
 let newValue = { 
@@ -74,5 +76,17 @@ function updateCallback () {
 }
 
 my_db.update("my_store", "MY_UNIQUE_ID", newValue, updateCallback);
+
+```
+
+- **delete(storeName, key, callback)** : To delete the value for the given key within the provided store. Callback is available here too (as optional parameter).
+```javascript
+
+//Create Callback if required
+function deleteCallback () { 
+    //something to do/trigger after successfull delete.
+}
+
+my_db.delete("my_store", "MY_UNIQUE_ID", deleteCallback);
 
 ```
