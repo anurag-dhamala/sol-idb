@@ -4,7 +4,8 @@
   "description": "IndexDB that is lucid. Simplest of all.",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"No test specified\""
+    "test": "echo \"No test specified\"",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
