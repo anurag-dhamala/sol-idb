@@ -1,9 +1,9 @@
-# luc-idb
-IndexDB that is vivid. Dead simple and clear to use.
+# sol-idb
+IndexDB that is rock solid. Dead simple and clear to use.
 
 **Installation:**
 ```
-npm install viv-idb
+npm install sol-idb
 
 //Or use your favorite package manager.
 ```
@@ -11,11 +11,13 @@ npm install viv-idb
 
 **Start using right away:**
 ```javascript
-import { VivIdb } from "luc-idb/types-lucid";
+import { SolIdb } from "sol-idb/types-solid";
+//OR
+// import { SolIdb } from "sol-idb";
 
 let DB_NAME = "db"; //name of database to create
 
-//Array of stores to create while initializing luc-idb
+//Array of stores to create while initializing sol-idb
 let stores = [
     {
         name: "my_store", // name of store
@@ -24,7 +26,7 @@ let stores = [
     },
     //...
 ];    
-let my_db = new VivIdb(DB_NAME, stores);
+let my_db = new SolIdb(DB_NAME, stores);
 ```
 You are free to create more than one database with above method.
 
@@ -84,7 +86,7 @@ my_db.update("my_store", "MY_UNIQUE_ID", newValue, updateCallback);
 
 //Create Callback if required
 function deleteCallback () { 
-    //something to do/trigger after successfull delete.
+    //something to do/trigger after successful delete.
 }
 
 my_db.delete("my_store", "MY_UNIQUE_ID", deleteCallback);
