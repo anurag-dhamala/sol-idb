@@ -5,7 +5,7 @@ interface Store {
     keyPath: string;
 }
 
-export class VivIdb {
+export class SolIdb {
     private idbDatabase: IDBDatabase | undefined;
     private stores: Array<Store> = [];
     private version: number = 1;

@@ -1,3 +1,3 @@
-import {VivIdb} from "./src/VivIdb";
+import {SolIdb} from "./src/SolIdb";
 
-export  {VivIdb};
+export  {SolIdb};

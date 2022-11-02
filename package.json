@@ -1,5 +1,5 @@
 {
-  "name": "viv-idb",
+  "name": "sol-idb",
   "version": "0.5.0",
   "description": "IndexDB that is vivid. Simplest of all.",
   "main": "index.ts",
