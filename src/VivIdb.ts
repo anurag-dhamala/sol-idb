@@ -14,6 +14,7 @@ export class VivIdb {
 
     public constructor(DB_NAME: string, stores: Array<Store>) {
         this.DB_NAME = DB_NAME;
+        this.stores = stores;
         let idbOpenDBRequest: IDBOpenDBRequest = window.indexedDB.open(DB_NAME, this.version);
         this.idbOpenDBRequest = idbOpenDBRequest;
         idbOpenDBRequest.addEventListener('error', function(ev){
