@@ -1,6 +1,6 @@
-import {LucIdb, Store} from "./src/LucIdb";
+import {VivIdb, Store} from "./src/VivIdb";
 
 export  {
-    LucIdb,
+    VivIdb,
     Store
 };

@@ -1,9 +1,9 @@
 # luc-idb
-IndexDB that is lucid. Dead simple to use.
+IndexDB that is vivid. Dead simple and clear to use.
 
 **Installation:**
 ```
-npm install luc-idb
+npm install viv-idb
 
 //Or use your favorite package manager.
 ```
@@ -11,7 +11,7 @@ npm install luc-idb
 
 **Start using right away:**
 ```javascript
-import { LucIdb } from "luc-idb/types-lucid";
+import { VivIdb } from "luc-idb/types-lucid";
 
 let DB_NAME = "db"; //name of database to create
 
@@ -24,7 +24,7 @@ let stores = [
     },
     //...
 ];    
-let my_db = new LucIdb(DB_NAME, stores);
+let my_db = new VivIdb(DB_NAME, stores);
 ```
 You are free to create more than one database with above method.
 

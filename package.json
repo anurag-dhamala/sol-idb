@@ -1,7 +1,7 @@
 {
-  "name": "luc-idb",
-  "version": "1.0.0",
-  "description": "IndexDB that is lucid. Simplest of all.",
+  "name": "viv-idb",
+  "version": "0.5.0",
+  "description": "IndexDB that is vivid. Simplest of all.",
   "main": "index.ts",
   "scripts": {
     "test": "echo \"No test specified\"",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anurag-dhamala/luc-idb.git"
+    "url": "git+https://github.com/anurag-dhamala/viv-idb.git"
   },
   "keywords": [
     "indexDB",
@@ -20,7 +20,7 @@
     "indexDB",
     "easy indexDB",
     "idb",
-    "luc-idb",
+    "viv-idb",
     "simple indexDB",
     "indexDB",
     "iDB",
@@ -29,9 +29,9 @@
   "author": "Anurag Dhamala",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/anurag-dhamala/luc-idb/issues"
+    "url": "https://github.com/anurag-dhamala/viv-idb/issues"
   },
-  "homepage": "https://github.com/anurag-dhamala/luc-idb#readme",
+  "homepage": "https://github.com/anurag-dhamala/viv-idb#readme",
   "devDependencies": {
     "typescript": "^4.8.4"
   }
