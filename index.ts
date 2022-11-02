@@ -1,6 +1,3 @@
-import {VivIdb, Store} from "./src/VivIdb";
+import {VivIdb} from "./src/VivIdb";
 
-export  {
-    VivIdb,
-    Store
-};
+export  {VivIdb};

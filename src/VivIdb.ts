@@ -1,6 +1,6 @@
 import {Errors } from "./Errors";
 
-export interface Store {
+interface Store {
     name: string;
     keyPath: string;
 }
