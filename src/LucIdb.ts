@@ -97,7 +97,7 @@ export class LucIdb {
         return this.stores;
     }
 
-    public save(storeName: string, object: any) {
+    public save(storeName: string, object: any, callback?: any) {
         let self = this;
         return new Promise<void>(function (resolve, reject) {
             self.triggerOnSuccess().then(function () {
@@ -116,6 +116,9 @@ export class LucIdb {
                 let request = store.add(object);
 
                 request.onsuccess = function (ev) {
+                    if(callback) {
+                        callback();
+                    }
                     resolve();
                 }
             });
