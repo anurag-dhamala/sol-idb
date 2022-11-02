@@ -4,7 +4,7 @@
   "description": "IndexDB that is lucid. Simplest of all.",
   "main": "index.ts",
   "scripts": {
-    "test": "yarn test"
+    "test": "echo \"No test specified\""
   },
   "repository": {
     "type": "git",
@@ -12,16 +12,18 @@
   },
   "keywords": [
     "indexDB",
-    "class",
-    "with",
+    "indexDB class",
     "indexDB",
+    "async",
+    "promise",
+    "indexDB",
+    "easy indexDB",
     "idb",
     "luc-idb",
-    "simple",
+    "simple indexDB",
     "indexDB",
     "iDB",
-    "class",
-    "wrapper"
+    "indexDB wrapper"
   ],
   "author": "Anurag Dhamala",
   "license": "MIT",
