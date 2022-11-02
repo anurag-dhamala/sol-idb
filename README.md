@@ -1,6 +1,13 @@
 # luc-idb
 IndexDB that is lucid. Dead simple to use.
 
+**Installation:**
+```
+npm install luc-idb
+
+//Or use your favorite package manager.
+```
+
 
 **Start using right away:**
 ```javascript
