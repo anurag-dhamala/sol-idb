@@ -1,0 +1,32 @@
+{
+  "name": "luc-idb",
+  "version": "1.0.0",
+  "description": "IndexDB that is lucid. Simplest of all.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "yarn test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anurag-dhamala/luc-idb.git"
+  },
+  "keywords": [
+    "indexDB",
+    "class",
+    "with",
+    "indexDB",
+    "idb",
+    "luc-idb",
+    "simple",
+    "indexDB",
+    "iDB",
+    "class",
+    "wrapper"
+  ],
+  "author": "Anurag Dhamala",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anurag-dhamala/luc-idb/issues"
+  },
+  "homepage": "https://github.com/anurag-dhamala/luc-idb#readme"
+}
