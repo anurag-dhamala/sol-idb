@@ -1,5 +1,6 @@
-import {LucIdb} from "./src/LucIdb";
+import {LucIdb, Store} from "./src/LucIdb";
 
 export  {
-    LucIdb
+    LucIdb,
+    Store
 };
