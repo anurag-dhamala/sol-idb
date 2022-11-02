@@ -1,6 +1,6 @@
 {
   "name": "luc-idb",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "IndexDB that is lucid. Simplest of all.",
   "main": "index.ts",
   "scripts": {
