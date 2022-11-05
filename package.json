@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anurag-dhamala/viv-idb.git"
+    "url": "git+https://github.com/anurag-dhamala/sol-idb.git"
   },
   "keywords": [
     "indexDB",
@@ -29,9 +29,9 @@
   "author": "Anurag Dhamala",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/anurag-dhamala/viv-idb/issues"
+    "url": "https://github.com/anurag-dhamala/sol-idb/issues"
   },
-  "homepage": "https://github.com/anurag-dhamala/viv-idb#readme",
+  "homepage": "https://github.com/anurag-dhamala/sol-idb#readme",
   "devDependencies": {
     "typescript": "^4.8.4"
   }
