@@ -34,6 +34,10 @@ export class SolIdb {
                 self.idbDatabase= ev.target.result;
                 resolve();
             }
+
+            self.idbOpenDBRequest.onerror = function (err) {
+                reject(err);
+            }
         });
     }
 
@@ -112,6 +116,7 @@ export class SolIdb {
                 }
 
                 transaction.onerror = function (err) {
+                    reject(err);
                 }
                 let store = transaction.objectStore(storeName);
                 let request = store.add(object);
@@ -121,6 +126,10 @@ export class SolIdb {
                         callback();
                     }
                     resolve();
+                }
+
+                request.onerror = function (err) {
+                    reject(err);
                 }
             });
         });
@@ -136,6 +145,11 @@ export class SolIdb {
                     throw new Error(Errors.STORE_NOT_FOUND);
                 }
                 let tx = idbDatabase.transaction(storeName, "readonly");
+
+                tx.onerror = function (err){
+                    reject(err);
+                }
+
                 let store = tx.objectStore(storeName);
 
                 let req = store.get(key);
@@ -186,8 +200,13 @@ export class SolIdb {
                     reject(Errors.STORE_NOT_FOUND);
                 }
                 let tx = idbDatabase.transaction(storeName, "readwrite");
+
+                tx.onerror = function (err) {
+                    reject(err);
+                }
+
                 let store = tx.objectStore(storeName);
-                let req = store.put(value);
+                let req = store.put(value, key);
                 req.onsuccess = function () {
                     if(callback) {
                         callback();
@@ -210,6 +229,10 @@ export class SolIdb {
                     throw new Error(Errors.STORE_NOT_FOUND);
                 }
                 let tx = idbDatabase?.transaction(storeName, "readwrite");
+
+                tx.onerror = function (err) {
+                    reject(err);
+                }
                 let store = tx.objectStore(storeName);
                 let req = store.delete(key);
                 req.onsuccess = function () {
