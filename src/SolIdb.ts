@@ -136,7 +136,7 @@ export class SolIdb {
 
     }
 
-    public get(storeName: string, key: any) {
+    public get(storeName: string, key: IDBValidKey) {
         let self = this;
         return new Promise<any>(function (resolve, reject) {
             self.triggerOnSuccess().then(function () {
@@ -188,7 +188,7 @@ export class SolIdb {
         })
     }
 
-    public update (storeName: string, key: any, value: any, callback?: any) {
+    public update (storeName: string, key: IDBValidKey, value: any, callback?: any) {
         let self = this;
         return new Promise<any>(function(resolve, reject) {
             self.triggerOnSuccess().then(function() {
