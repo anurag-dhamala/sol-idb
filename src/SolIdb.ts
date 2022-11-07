@@ -247,4 +247,20 @@ export class SolIdb {
             })
         });
     }
+
+    public checkIfContainsStore() {
+        let self = this;
+        return new Promise<boolean>(function (resolve, reject) {
+            self.triggerOnSuccess().then(function () {
+                let idbDatabase = self.getIDB();
+                if(idbDatabase && idbDatabase?.objectStoreNames?.length > 0 ){
+                    resolve(true);
+                    return;
+                }
+                resolve(false);
+            }).catch(function (err) {
+                reject(err);
+            })
+        })
+    }
 }
