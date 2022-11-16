@@ -1,54 +1,41 @@
-import {Errors } from "./Errors";
-
-interface Store {
-    name: string;
-    keyPath: string;
-}
-
+import { Errors } from "./Errors";
 export class SolIdb {
-    private idbDatabase: IDBDatabase | undefined;
-    private stores: Array<Store> = [];
-    private version: number = 1;
-    private idbOpenDBRequest: IDBOpenDBRequest;
-    private DB_NAME: string;
-
-    public constructor(DB_NAME: string, stores: Array<Store>) {
+    constructor(DB_NAME, stores) {
+        this.stores = [];
+        this.version = 1;
         this.DB_NAME = DB_NAME;
         this.stores = stores;
-        let idbOpenDBRequest: IDBOpenDBRequest = window.indexedDB.open(DB_NAME, this.version);
+        let idbOpenDBRequest = window.indexedDB.open(DB_NAME, this.version);
         this.idbOpenDBRequest = idbOpenDBRequest;
-        idbOpenDBRequest.addEventListener('error', function(ev){
+        idbOpenDBRequest.addEventListener('error', function (ev) {
         });
         this.triggerOnSuccess();
         this.triggerOnUpgradeNeeded(stores);
     }
-
-    private triggerOnSuccess(): Promise<void>{
+    triggerOnSuccess() {
         let self = this;
-        return new Promise<void>(function(resolve, reject) {
-            if(self.idbDatabase) {
+        return new Promise(function (resolve, reject) {
+            if (self.idbDatabase) {
                 resolve();
             }
             self.idbOpenDBRequest.onsuccess = function (ev) {
                 //@ts-ignore
-                self.idbDatabase= ev.target.result;
+                self.idbDatabase = ev.target.result;
                 resolve();
-            }
-
+            };
             self.idbOpenDBRequest.onerror = function (err) {
                 reject(err);
-            }
+            };
         });
     }
-
-    private triggerOnUpgradeNeeded(stores?: Array<Store>) {
+    triggerOnUpgradeNeeded(stores) {
         let self = this;
-        return new Promise<void>(function (resolve, reject) {
-            self.idbOpenDBRequest.onupgradeneeded = function (ev ){
-                console.log("[DB_INFO]: Upgrade Version ",ev.oldVersion, "-> ",ev.newVersion);
+        return new Promise(function (resolve, reject) {
+            self.idbOpenDBRequest.onupgradeneeded = function (ev) {
+                console.log("[DB_INFO]: Upgrade Version ", ev.oldVersion, "-> ", ev.newVersion);
                 //@ts-ignore
                 self.idbDatabase = ev.target.result;
-                if(!stores?.length) {
+                if (!(stores === null || stores === void 0 ? void 0 : stores.length)) {
                     return;
                 }
                 let flag;
@@ -56,39 +43,32 @@ export class SolIdb {
                     flag = self.createStore(store);
                 }
                 resolve();
-            }
+            };
         });
-
     }
-
-    private setIdbDatabase(idbDatabase: any) {
+    setIdbDatabase(idbDatabase) {
         this.idbDatabase = idbDatabase;
     }
-
-    public getIDB(){
+    getIDB() {
         return this.idbDatabase;
     }
-
-    private setVersion(version: number) {
+    setVersion(version) {
         this.version = version;
     }
-
-    private getVersion() {
+    getVersion() {
         let self = this;
         return self.version;
     }
-
-    private addToStoresList (store: Store){
+    addToStoresList(store) {
         this.stores.push(store);
     }
-
-    private createStore(store: Store): boolean {
+    createStore(store) {
         let self = this;
         let idbDatabase = this.getIDB();
-        if(!idbDatabase){
+        if (!idbDatabase) {
             throw new Error(Errors.DB_NOT_FOUND);
         }
-        if(idbDatabase.objectStoreNames.contains(store.name)){
+        if (idbDatabase.objectStoreNames.contains(store.name)) {
             return false;
         }
         idbDatabase.createObjectStore(store.name, {
@@ -97,170 +77,151 @@ export class SolIdb {
         self.addToStoresList(store);
         return true;
     }
-
-    public getAllStores():Array<Store> {
+    getAllStores() {
         return this.stores;
     }
-
-    public save(storeName: string, object: any, callback?: any) {
+    save(storeName, object, callback) {
         let self = this;
-        return new Promise<void>(function (resolve, reject) {
+        return new Promise(function (resolve, reject) {
             self.triggerOnSuccess().then(function () {
                 let idbDatabase = self.getIDB();
-                if(!idbDatabase?.objectStoreNames.contains(storeName)){
+                if (!(idbDatabase === null || idbDatabase === void 0 ? void 0 : idbDatabase.objectStoreNames.contains(storeName))) {
                     throw new Error(Errors.STORE_NOT_FOUND);
                 }
                 let transaction = idbDatabase.transaction(storeName, 'readwrite');
-                if(!transaction) return;
+                if (!transaction)
+                    return;
                 transaction.oncomplete = function (ev) {
-                }
-
+                };
                 transaction.onerror = function (err) {
                     reject(err);
-                }
+                };
                 let store = transaction.objectStore(storeName);
                 let request = store.add(object);
-
                 request.onsuccess = function (ev) {
-                    if(callback) {
+                    if (callback) {
                         callback();
                     }
                     resolve();
-                }
-
+                };
                 request.onerror = function (err) {
                     reject(err);
-                }
+                };
             });
         });
-
     }
-
-    public get(storeName: string, key: IDBValidKey) {
+    get(storeName, key) {
         let self = this;
-        return new Promise<any>(function (resolve, reject) {
+        return new Promise(function (resolve, reject) {
             self.triggerOnSuccess().then(function () {
                 let idbDatabase = self.getIDB();
-                if(!idbDatabase?.objectStoreNames.contains(storeName)){
+                if (!(idbDatabase === null || idbDatabase === void 0 ? void 0 : idbDatabase.objectStoreNames.contains(storeName))) {
                     throw new Error(Errors.STORE_NOT_FOUND);
                 }
                 let tx = idbDatabase.transaction(storeName, "readonly");
-
-                tx.onerror = function (err){
+                tx.onerror = function (err) {
                     reject(err);
-                }
-
+                };
                 let store = tx.objectStore(storeName);
-
                 let req = store.get(key);
                 req.onsuccess = function (ev) {
                     resolve(req.result);
-                }
-
-                req.onerror = function (ev){
+                };
+                req.onerror = function (ev) {
                     reject();
-                }
-            })
-        })
-
+                };
+            });
+        });
     }
-
-    public getAll(storeName: string) {
+    getAll(storeName) {
         let self = this;
-        return new Promise<any[]>(function (resolve, reject) {
+        return new Promise(function (resolve, reject) {
             self.triggerOnSuccess().then(function () {
                 let idbDatabase = self.getIDB();
-                if(!idbDatabase?.objectStoreNames.contains(storeName)){
+                if (!(idbDatabase === null || idbDatabase === void 0 ? void 0 : idbDatabase.objectStoreNames.contains(storeName))) {
                     throw new Error(Errors.STORE_NOT_FOUND);
                 }
                 let tx = idbDatabase.transaction(storeName, "readonly");
                 let store = tx.objectStore(storeName);
-
                 let req = store.getAll();
                 req.onsuccess = function (ev) {
                     resolve(req.result);
-                }
-
-                req.onerror = function (ev){
+                };
+                req.onerror = function (ev) {
                     reject();
-                }
-            })
-        })
+                };
+            });
+        });
     }
-
-    public update (storeName: string, key: IDBValidKey, value: any, callback?: any) {
+    update(storeName, key, value, callback) {
         let self = this;
-        return new Promise<any>(function(resolve, reject) {
-            self.triggerOnSuccess().then(function() {
+        return new Promise(function (resolve, reject) {
+            self.triggerOnSuccess().then(function () {
                 let idbDatabase = self.getIDB();
-                if(!idbDatabase?.objectStoreNames.contains(storeName)){
+                if (!(idbDatabase === null || idbDatabase === void 0 ? void 0 : idbDatabase.objectStoreNames.contains(storeName))) {
                     throw new Error(Errors.STORE_NOT_FOUND);
                 }
-                if(!idbDatabase.objectStoreNames.contains(storeName)) {
+                if (!idbDatabase.objectStoreNames.contains(storeName)) {
                     reject(Errors.STORE_NOT_FOUND);
                 }
                 let tx = idbDatabase.transaction(storeName, "readwrite");
-
                 tx.onerror = function (err) {
                     reject(err);
-                }
-
+                };
                 let store = tx.objectStore(storeName);
                 let req = store.put(value);
                 req.onsuccess = function () {
-                    if(callback) {
+                    if (callback) {
                         callback();
                     }
                     resolve(req.result);
-                }
+                };
                 req.onerror = function (err) {
                     reject(err);
-                }
+                };
             });
-        })
+        });
     }
-
-    public delete(storeName: string, key: any, callback?: any) {
+    delete(storeName, key, callback) {
         let self = this;
-        return new Promise<any>(function (resolve, reject) {
-            self.triggerOnSuccess().then(function() {
+        return new Promise(function (resolve, reject) {
+            self.triggerOnSuccess().then(function () {
                 let idbDatabase = self.getIDB();
-                if(!idbDatabase?.objectStoreNames.contains(storeName)){
+                if (!(idbDatabase === null || idbDatabase === void 0 ? void 0 : idbDatabase.objectStoreNames.contains(storeName))) {
                     throw new Error(Errors.STORE_NOT_FOUND);
                 }
-                let tx = idbDatabase?.transaction(storeName, "readwrite");
-
+                let tx = idbDatabase === null || idbDatabase === void 0 ? void 0 : idbDatabase.transaction(storeName, "readwrite");
                 tx.onerror = function (err) {
                     reject(err);
-                }
+                };
                 let store = tx.objectStore(storeName);
                 let req = store.delete(key);
                 req.onsuccess = function () {
-                    if(callback) {
+                    if (callback) {
                         callback();
                         resolve(req.result);
                     }
-                }
+                };
                 req.onerror = function (err) {
-                    reject(err)
-                }
-            })
+                    reject(err);
+                };
+            });
         });
     }
-
-    public checkIfContainsStore() {
+    checkIfContainsStore() {
         let self = this;
-        return new Promise<boolean>(function (resolve, reject) {
+        return new Promise(function (resolve, reject) {
             self.triggerOnSuccess().then(function () {
+                var _a;
                 let idbDatabase = self.getIDB();
-                if(idbDatabase && idbDatabase?.objectStoreNames?.length > 0 ){
+                if (idbDatabase && ((_a = idbDatabase === null || idbDatabase === void 0 ? void 0 : idbDatabase.objectStoreNames) === null || _a === void 0 ? void 0 : _a.length) > 0) {
                     resolve(true);
                     return;
                 }
                 resolve(false);
             }).catch(function (err) {
                 reject(err);
-            })
-        })
+            });
+        });
     }
 }
