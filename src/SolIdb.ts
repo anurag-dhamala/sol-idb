@@ -264,21 +264,21 @@ export class SolIdb {
         })
     }
 
-    public clearStore(storeName: string) {
-        const self = this;
+    public clearIDBStore(storeName: string) {
+        let self = this;
         return new Promise<void>(function (resolve, reject) {
             self.triggerOnSuccess().then(function() {
                 let idbDatabase = self.getIDB();
                 if(!idbDatabase?.objectStoreNames.contains(storeName)){
                     throw new Error(Errors.STORE_NOT_FOUND);
                 }
-                const tx = idbDatabase?.transaction(storeName, "readwrite");
+                let tx = idbDatabase?.transaction(storeName, "readwrite");
 
                 tx.onerror = function (err) {
                     reject(err);
                 }
-                const store = tx.objectStore(storeName);
-                const clearRequest = store.clear();
+                let store = tx.objectStore(storeName);
+                let clearRequest = store.clear();
                 clearRequest.onsuccess =(event)=>{
                     resolve();
                 }

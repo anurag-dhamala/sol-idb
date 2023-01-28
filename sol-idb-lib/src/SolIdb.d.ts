@@ -24,6 +24,6 @@ export declare class SolIdb {
     update(storeName: string, key: IDBValidKey, value: any, callback?: any): Promise<any>;
     delete(storeName: string, key: any, callback?: any): Promise<any>;
     checkIfContainsStore(): Promise<boolean>;
-    clearStore(storeName: string): Promise<void>;
+    clearIDBStore(storeName: string): Promise<void>;
 }
 export {};

@@ -1,0 +1,39 @@
+{
+  "name": "sol-idb",
+  "version": "1.0.5",
+  "description": "IndexDB that is rock solid. Simplest of all.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No test specified\"",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anurag-dhamala/sol-idb.git"
+  },
+  "keywords": [
+    "indexDB",
+    "indexDB class",
+    "indexDB",
+    "async",
+    "promise",
+    "indexDB",
+    "easy indexDB",
+    "idb",
+    "viv-idb",
+    "simple indexDB",
+    "indexDB",
+    "iDB",
+    "front-end",
+    "indexDB wrapper"
+  ],
+  "author": "Anurag Dhamala",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anurag-dhamala/sol-idb/issues"
+  },
+  "homepage": "https://github.com/anurag-dhamala/sol-idb#readme",
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}

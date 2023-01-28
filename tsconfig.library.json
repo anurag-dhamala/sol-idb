@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": true,
+    "lib": ["ES2015", "dom"],
+    "outDir": "./sol-idb-lib",
+    "strict": true
+  },
+}
