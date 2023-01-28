@@ -199,8 +199,8 @@ export class SolIdb {
                 req.onsuccess = function () {
                     if (callback) {
                         callback();
-                        resolve(req.result);
                     }
+                    resolve(req.result);
                 };
                 req.onerror = function (err) {
                     reject(err);
@@ -221,6 +221,29 @@ export class SolIdb {
                 resolve(false);
             }).catch(function (err) {
                 reject(err);
+            });
+        });
+    }
+    clearStore(storeName) {
+        const self = this;
+        return new Promise(function (resolve, reject) {
+            self.triggerOnSuccess().then(function () {
+                let idbDatabase = self.getIDB();
+                if (!(idbDatabase === null || idbDatabase === void 0 ? void 0 : idbDatabase.objectStoreNames.contains(storeName))) {
+                    throw new Error(Errors.STORE_NOT_FOUND);
+                }
+                const tx = idbDatabase === null || idbDatabase === void 0 ? void 0 : idbDatabase.transaction(storeName, "readwrite");
+                tx.onerror = function (err) {
+                    reject(err);
+                };
+                const store = tx.objectStore(storeName);
+                const clearRequest = store.clear();
+                clearRequest.onsuccess = (event) => {
+                    resolve();
+                };
+                clearRequest.onerror = (event) => {
+                    reject();
+                };
             });
         });
     }

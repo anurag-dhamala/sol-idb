@@ -92,3 +92,10 @@ function deleteCallback () {
 my_db.delete("my_store", "MY_UNIQUE_ID", deleteCallback);
 
 ```
+
+- **clearStore(storeName)** : To clear the store.
+```javascript
+
+my_db.clearStore("my_store");
+
+```

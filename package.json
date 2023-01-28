@@ -1,6 +1,6 @@
 {
   "name": "sol-idb",
-  "version": "0.5.1",
+  "version": "1.0.0",
   "description": "IndexDB that is rock solid. Simplest of all.",
   "main": "index.ts",
   "scripts": {
